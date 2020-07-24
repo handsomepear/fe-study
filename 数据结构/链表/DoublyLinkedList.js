@@ -85,6 +85,35 @@ class DoublyLinkedList {
             current.next.prev = current.prev;
         }
     }
+    // 交换位置
+    swap(nodeOne, nodeTwo) {
+        let current = this.head;
+        let counter = 0;
+        let firstNode;
+        while (current !== null) {
+            if (counter === nodeOne) {
+                firstNode = current;
+            } else if (counter === nodeTwo) {
+                // 只更改数据 不更改next指针
+                [current.data, firstNode.data] === [firstNode.data, current.data];
+            }
+            current = current.next;
+            counter++;
+        }
+        return true;
+    }
+    length() {
+        let current = this.head;
+        let counter = 0;
+        while (current !== null) {
+            counter++;
+            current = current.next;
+        }
+        return counter;
+    }
+    isEmpty() {
+        return this.length() < 1;
+    }
 }
 
 let doublyLinkedList = new DoublyLinkedList();
@@ -92,6 +121,10 @@ let doublyLinkedList = new DoublyLinkedList();
 doublyLinkedList.append('node1');
 doublyLinkedList.append('node2');
 doublyLinkedList.append('node3');
-console.log(doublyLinkedList);
-doublyLinkedList.appendAt(1, 'hello');
+// console.log(doublyLinkedList);
+// doublyLinkedList.appendAt(1, 'hello');
+// console.log(doublyLinkedList);
+
+// swap
+doublyLinkedList.swap(1, 3);
 console.log(doublyLinkedList);

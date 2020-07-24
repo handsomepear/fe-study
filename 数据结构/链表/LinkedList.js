@@ -133,24 +133,36 @@ class LinkedList {
             current = current.next;
         }
     }
+    // 迭代法
     reverseList() {
         if (!this.head) {
             return;
         }
-        // 三指针
-        let pCur = this.head;
-        let pPrev = null;
-        let pNext = null;
-        while (head !== null) {
-            // 1. 获取到下一个节点的next指针
-            pNext = pCur.next;
-            // 2. 当前节点指向上一个节点
-            pCur.next = pPrev;
-            // 3. 上一个节点赋值为当前节点
-            pPrev = pCur;
-            // 4. 当前节点赋值为下一个节点
-            pCur = pNext;
+        // 双指针
+        let prev = null;
+        let curr = this.head;
+        while (curr !== null) {
+            // // 1.保存当前节点的下一个节点 作为下一次循环的curr指针
+            // let temp = curr.next;
+            // // 2. 反转当前节点
+            // curr.next = prev;
+            // // 3.移动prev指针
+            // prev = curr;
+            // // 4.移动curr指针
+            // curr = temp;
+            [curr.next, prev, curr] = [prev, curr, curr.next];
         }
+        // 最后prev是head节点 curr是null
+        this.head = prev;
+    }
+    // 自递归
+    reverse() {
+        if (!this.head || !this.head.next) return this.head;
+        let next = this.head.next;
+        let reverseHead = this.reverse(next);
+        this.head.next = null;
+        next.next = head;
+        return reverseHead;
     }
 }
 
