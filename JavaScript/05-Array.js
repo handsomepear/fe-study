@@ -28,6 +28,8 @@ var numOne = [0, 2, 4, 6, 8, 8];
 var numTwo = [1, 2, 3, 4, 5, 6];
 
 // 先去重 然后再通过filter筛选出第二个数组包含的值
+// fixme: 这个方法只能得到去重之后的交集 testcase：[1,2,2,1] [2]  => 期望[2]
+
 var duplicatedValues = [...new Set(numOne)].filter((num) => numTwo.includes(num));
 console.log(duplicatedValues);
 
@@ -47,3 +49,21 @@ var colors = ['blue', 'pink', 'green', 'purple'];
 // 不会改变原数组 slice生成了新数组
 console.log(colors.slice().reverse());
 console.log(colors);
+
+// 10. reduce 实现 filter
+Array.prototype._filter = function (callback) {
+    if (typeof callback === 'function') {
+        return this.reduce((prev, item, index, arr) => {
+            callback(item, index, arr) ? prev.push(item) : null;
+            return prev;
+        }, []);
+    } else {
+        throw 'callback is not a function';
+    }
+};
+
+var _filterRet = colors._filter((item, index) => {
+    return item.includes('e');
+});
+
+console.log(_filterRet);
