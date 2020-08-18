@@ -188,8 +188,8 @@ class MyPromise {
     }
     // 返回一个fulfilled状态的promise 一般用来作为promise链的开端
     static resolve(value) {
-        return new MyPromise((resolve, reject) => {
-            this.resolvePromise(promise, value, resolve, reject);
+        return new MyPromise((resolve) => {
+            resolve(value);
         });
     }
 
